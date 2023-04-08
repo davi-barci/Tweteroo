@@ -14,15 +14,20 @@ app.post('/sign-up', (req, res) => {
 });
 
 app.post('/tweets', (req, res) => {
-    const usuario = usuariosServidor.find(elem => elem.username === req.body.username);
+    const usuario = usuariosServidor.filter(elem => elem.username === req.body.username);
 
     if (usuario){
-        tweetsServidor.push({username: req.body.username, tweet: req.body.tweet});
+        tweetsServidor.push({username: req.body.username, avatar: usuario.avatar, tweet: req.body.tweet});
         return res.send("OK");
     }
 
     res.send("UNAUTHORIZED");
 });
+
+app.get('/tweets', (req, res) => {
+    res.send(tweetsServidor.slice(-10));
+});
+
 
 const PORT = 5000;
 
