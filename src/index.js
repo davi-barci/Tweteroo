@@ -9,11 +9,19 @@ const usuariosServidor = [];
 const tweetsServidor = [];
 
 app.post('/sign-up', (req, res) => {
+    if (!req.body.username || typeof req.body.username !== "string"
+    || !req.body.avatar || typeof req.body.avatar !== "string"){
+        return res.status(400).send("Todos os campos são obrigatórios!");
+    }
     usuariosServidor.push({username: req.body.username, avatar: req.body.avatar});
-    res.send("OK");
+    return res.send("OK");
 });
 
 app.post('/tweets', (req, res) => {
+    if (!req.body.username || typeof req.body.username !== "string"
+    || !req.body.tweet || typeof req.body.tweet !== "string"){
+        return res.status(400).send("Todos os campos são obrigatórios!");
+    }
     const usuario = usuariosServidor.find(elem => elem.username === req.body.username);
 
     if (usuario){
@@ -21,7 +29,7 @@ app.post('/tweets', (req, res) => {
         return res.send("OK");
     }
 
-    res.send("UNAUTHORIZED");
+    return res.send("UNAUTHORIZED");
 });
 
 app.get('/tweets', (req, res) => {
