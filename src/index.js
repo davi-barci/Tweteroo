@@ -14,7 +14,7 @@ app.post('/sign-up', (req, res) => {
         return res.status(400).send("Todos os campos são obrigatórios!");
     }
     usuariosServidor.push({username: req.body.username, avatar: req.body.avatar});
-    return res.send("OK");
+    return res.status(201).send("OK");
 });
 
 app.post('/tweets', (req, res) => {
@@ -26,10 +26,10 @@ app.post('/tweets', (req, res) => {
 
     if (usuario){
         tweetsServidor.push({username: req.body.username, avatar: usuario.avatar, tweet: req.body.tweet});
-        return res.send("OK");
+        return res.status(201).send("OK");
     }
 
-    return res.send("UNAUTHORIZED");
+    return res.status(401).send("UNAUTHORIZED");
 });
 
 app.get('/tweets', (req, res) => {
