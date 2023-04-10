@@ -36,6 +36,12 @@ app.get('/tweets', (req, res) => {
     res.send(tweetsServidor.slice(-10));
 });
 
+app.get('/tweets/:username', (req, res) => {
+    const username = req.params.username;
+    const userTweets = tweetsServidor.filter(elem => elem.username === username);
+
+    res.send(userTweets);
+});
 
 const PORT = 5000;
 
