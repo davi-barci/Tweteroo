@@ -37,7 +37,7 @@ app.get('/tweets', (req, res) => {
     const page = parseInt(req.query.page);
 
     if (isNaN(page)) {
-        res.send([...tweetsServidor].reverse().slice(10));
+        res.send([...tweetsServidor].reverse().slice(0,10));
     } else if (page <= 0) {
         res.status(400).send("Informe uma página válida!");
     } else {
