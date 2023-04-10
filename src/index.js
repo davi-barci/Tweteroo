@@ -18,14 +18,15 @@ app.post('/sign-up', (req, res) => {
 });
 
 app.post('/tweets', (req, res) => {
-    if (!req.body.username || typeof req.body.username !== "string"
-        || !req.body.tweet || typeof req.body.tweet !== "string") {
+    const user = req.headers.user;
+
+    if (!user|| typeof user !== "string" || !req.body.tweet || typeof req.body.tweet !== "string") {
         return res.status(400).send("Todos os campos são obrigatórios!");
     }
-    const usuario = usuariosServidor.find(elem => elem.username === req.body.username);
+    const usuario = usuariosServidor.find(elem => elem.username === user);
 
     if (usuario) {
-        tweetsServidor.push({ username: req.body.username, avatar: usuario.avatar, tweet: req.body.tweet });
+        tweetsServidor.push({ username: user, avatar: usuario.avatar, tweet: req.body.tweet });
         return res.status(201).send("OK");
     }
 
