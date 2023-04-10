@@ -37,13 +37,13 @@ app.get('/tweets', (req, res) => {
     const page = parseInt(req.query.page);
 
     if (isNaN(page)) {
-        res.send(tweetsServidor.reverse().slice(10));
+        res.send([...tweetsServidor].reverse().slice(10));
     } else if (page <= 0) {
         res.status(400).send("Informe uma página válida!");
     } else {
         const limite = 10;
         const iniIndex = (page - 1) * limite;
-        res.send(tweetsServidor.reverse().slice(iniIndex, iniIndex+limite));
+        res.send([...tweetsServidor].reverse().slice(iniIndex, iniIndex+limite));
     }
 
 });
